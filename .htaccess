@@ -1,0 +1,13 @@
+Options +FollowSymlinks
+RewriteEngine On
+
+# deal with administrator first
+RewriteCond %{REQUEST_URI} ^/projects/advanced/(admin)
+RewriteRule ^admin/assets/(.*)$ backend/web/assets/$1 [L]
+RewriteRule ^admin/css/(.*)$ backend/web/css/$1 [L]
+
+RewriteCond %{REQUEST_URI} !^/projects/advanced/backend/web/(assets|css)/
+RewriteCond %{REQUEST_URI} ^/projects/advanced/(admin)
+RewriteRule ^.*$ backend/web/index.php [L]
+
+
