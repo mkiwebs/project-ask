@@ -69,4 +69,9 @@ class BlogCategory extends \yii\db\ActiveRecord
        
        //var_dump($app_log_model->attributes);
     }
+
+    public function getBlogArticle()
+    {
+        return $this->hasOne(BlogCategory::className(), ['id' => 'customer_id']);
+    }
 }

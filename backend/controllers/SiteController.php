@@ -7,6 +7,8 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 use common\models\User;
+use common\models\Meme;
+use common\models\Qtest;
 use common\models\Question;
 use common\models\AppLog;
 use common\models\BlogArticle;
@@ -122,6 +124,8 @@ class SiteController extends Controller
        
         $new_users = User::newUsers();
         $new_questions = Question::newQuestions();
+        $new_memes = Meme::newMemes();
+        $new_IQs = Qtest::newquiz();
         //count all users
         $total_users = User::getTotalUsers();
         $online_users = User::usersOnline();
@@ -131,6 +135,7 @@ class SiteController extends Controller
         //recent logs
         $recent_logs = AppLog::recentAppLogs();
         $recent_articles = BlogArticle::recentArticle();
+        $recent_memes = Meme::recentMemes();
         //recent questions
         $recent_questions = Question::recentQuestions();
         return $this->render('dashboard',
@@ -141,8 +146,11 @@ class SiteController extends Controller
                 'recentQuestions' => $recent_questions,
                 'recent_logs' =>$recent_logs,
                 'recent_articles' =>$recent_articles,
+                'recent_memes' =>$recent_memes,
                 'recent_events' => $recent_app_events,
-                'new_questions'  => $new_questions
+                'new_questions'  => $new_questions,
+                'new_memes'  => $new_memes,
+                'new_IQs'  => $new_IQs
             ]);
     }
 }

@@ -28,11 +28,11 @@ $this->registerJs($script);
 
     <?= $form->field($model, 'event_venue')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'event_address')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'event_address')->textarea(['rows' => 2]) ?>
 
     <?= $form->field($model, 'event_phone')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'eventBanner')->fileInput() ?>
+    <?= $form->field($model, 'event_image')->fileInput() ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 

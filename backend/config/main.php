@@ -5,7 +5,7 @@ $params = array_merge(
     require __DIR__ . '/params.php',
     require __DIR__ . '/params-local.php'
 );
-
+ 
 return [
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
@@ -18,7 +18,7 @@ return [
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
-        
+       
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
@@ -57,7 +57,7 @@ return [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>'
             ],
         ],
-        
+       
     ],
     'params' => $params,
     'defaultRoute'=>'site/dashboard',

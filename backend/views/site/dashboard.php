@@ -56,6 +56,37 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <!-- /.info-box -->
     </div>
+</div>
+<div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-ticket"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">New IQ Question</span>
+                <span class="info-box-number"><?= $new_IQs;?></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-red"><i class="fa fa-info-circle"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">New Memes</span>
+                <span class="info-box-number"><?= $new_memes; ?></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+
+    <!-- fix for small devices only -->
+    <div class="clearfix visible-sm-block"></div>
     <!-- /.col -->
     <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box">
@@ -180,12 +211,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <!-- TABLE: LATEST TICKETS -->
         <div class="box box-info">
             <div class="box-header with-border">
-                <h3 class="box-title">Latest Articles</h3>
+                <h3 class="box-title">Latest Memes</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
                 <?= GridView::widget([
-                        'dataProvider' => $recent_articles,
+                        'dataProvider' => $recent_memes,
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
                             [
@@ -195,25 +226,25 @@ $this->params['breadcrumbs'][] = $this->title;
                              'contentOptions' => [
                                         'style' => ['max-width' => '100px;']],
                              'value' => function($data){ //return "Pending";
-                                            if (strlen($data->article_title) > 30 ) {
-                                                return substr($data->article_title, 0,30)."...";
+                                            if (strlen($data->text_content) > 30 ) {
+                                                return substr($data->text_content, 0,30)."...";
                                             } else {
-                                                return $data->article_title;
+                                                return $data->text_content;
                                             }
                                           }
                             ],
-                            'created_at',
+                            'addtime',
                             //'draft',
-                            [
-                            'attribute' =>'draft',
-                            'value' => function($data){ //return "Pending";
-                                            if ($data->draft == 0 ) {
-                                                return "Published";
-                                            } else {
-                                                return "Draft";
-                                            }
-                                          }
-                            ],
+                            // [
+                            // 'attribute' =>'draft',
+                            // 'value' => function($data){ //return "Pending";
+                            //                 if ($data->draft == 0 ) {
+                            //                     return "Published";
+                            //                 } else {
+                            //                     return "Draft";
+                            //                 }
+                            //               }
+                            // ],
                             //'category',
                             // 'keywords',
                             // 'article_views',
@@ -226,7 +257,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'class' => 'yii\grid\ActionColumn',
                                 'template'=>'{view}',
                                 'urlCreator' => function ($action, $model, $key, $index) {
-                                                    return Url::toRoute(['article/view', 'id' => $model->id]);
+                                                    return Url::toRoute(['meme/view', 'id' => $model->id]);
 
                                                 }
 

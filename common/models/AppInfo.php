@@ -28,8 +28,7 @@ class AppInfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'title', 'content', 'date_added'], 'required'],
-            [['id'], 'integer'],
+            [['title', 'content', 'date_added'], 'required'],
             [['content'], 'string'],
             [['date_added'], 'safe'],
             [['title'], 'string', 'max' => 300],

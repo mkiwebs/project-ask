@@ -10,11 +10,13 @@ use Yii;
  * @property integer $id
  * @property string $recommendation_code
  * @property string $recommedor_name
- * @property string $recommendation_person
+ * @property string $recommended_person
  * @property integer $awarded_points
  */
 class RecommendationDetails extends \yii\db\ActiveRecord
 {
+   const USER_RECOMMEND_POINTS = 5;
+
     /**
      * @inheritdoc
      */
@@ -29,11 +31,11 @@ class RecommendationDetails extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['recommendation_code', 'recommedor_name', 'recommendation_person', 'awarded_points'], 'required'],
+            [['recommendation_code', 'recommedor_name', 'recommended_person', 'awarded_points'], 'required'],
+            ['recommended_person', 'unique', 'targetClass' => '\common\models\RecommendationDetails', 'message' => 'You have already claimed your Points.'],
             [['awarded_points'], 'integer'],
-            ['recommendation_person', 'unique', 'targetClass' => '\common\models\RecommendationDetails', 'message' => 'You have already claimed your Points.'],
             [['recommendation_code'], 'string', 'max' => 100],
-            [['recommedor_name', 'recommendation_person'], 'string', 'max' => 255],
+            [['recommedor_name', 'recommended_person'], 'string', 'max' => 255],
         ];
     }
 
@@ -46,18 +48,8 @@ class RecommendationDetails extends \yii\db\ActiveRecord
             'id' => 'ID',
             'recommendation_code' => 'Recommendation Code',
             'recommedor_name' => 'Recommedor Name',
-            'recommendation_person' => 'Recommendation Person',
+            'recommended_person' => 'Recommended Person',
             'awarded_points' => 'Awarded Points',
         ];
-    }
-
-    public function getRecommendor()
-    {
-       return  $this->hasOne(User::className(),['id' => 'recommedor_name']);
-    }
-
-    public function getRecommended()
-    {
-       return  $this->hasOne(User::className(),['id' => 'recommendation_person']);
     }
 }

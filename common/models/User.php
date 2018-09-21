@@ -8,6 +8,7 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use yii\db\Expression;
 use yii\db\Query;
+use common\models\UserProfile;
 /**
  * User model
  *
@@ -26,6 +27,7 @@ class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
+
 
     /**
      * @inheritdoc
@@ -48,17 +50,13 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-
     public function rules()
     {
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-            [['created_at', 'date_modified', 'updated_at'], 'safe'],
-            [['full_name','facebook_id', 'facebook_name', 'google_id'], 'string', 'max' => 255],
-            [['favourite_question'], 'string', 'max' => 20],
-            [['phone'], 'string', 'max' => 11],
-            [['user_image'], 'string', 'max' => 500],
+            [['user_points'], 'integer'],
+            ['recommend_code', 'string', 'max' => 10],
         ];
     }
 
@@ -186,14 +184,6 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Generates new api password reset token
-     */
-    public function ApiGeneratePasswordResetToken()
-    {
-        $this->password_reset_token = date('His');
-    }
-
-    /**
      * Removes password reset token
      */
     public function removePasswordResetToken()
@@ -233,32 +223,33 @@ class User extends ActiveRecord implements IdentityInterface
         return $count;
     }
     
-   public function beforeSave($insert)
-   {
-       if(parent::beforeSave($insert)){
-            if ($this->isNewRecord) {
-              $this->created_at = new Expression('NOW()');
-            } else {
-                $this->updated_at = new Expression('NOW()');
-            }
-           return true;
-       }else{
-           return false;
-       }
-   }
+//    public function beforeSave($insert)
+//    {
+//        if(parent::beforeSave($insert)){
+//            $this->password_hash=$this->setPassword($this->password_hash);
+//            return true;
+//        }else{
+//            return false;
+//        }
+//    }
+    //generate user recommend code
+    public static function userRecommendCode($user_id)
+    {
+        //generate a string of 6 digits
+        //save to USER_PROFILE model
+        $model = new UserProfile();
+        $model->recommend_code = date('His');
+        $model->user_id = $user_id;
+        if ($model->save()) {
+            return true;
+        } else {
+            return $model->getErrors();
+        }
+        
+    }
 
-   public static function checkRecommendCode($recommendCode)
+    public static function checkRecommendCode($recommendCode)
     {
         return static::findOne(['recommend_code' => $recommendCode, 'status' => self::STATUS_ACTIVE]);
-    }
-
-    public function getQuestion()
-    {
-       return $this->hasMany(Question::className(), ['username' => 'id']);
-    }
-
-    public function getAppLog()
-    {
-       return $this->hasMany(AppLog::className(), ['user_id' => 'id']);
     }
 }

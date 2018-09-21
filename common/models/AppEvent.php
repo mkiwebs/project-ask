@@ -18,7 +18,6 @@ use yii\data\ActiveDataProvider;
  */
 class AppEvent extends \yii\db\ActiveRecord
 {
-    public $eventBanner;
     /**
      * @inheritdoc
      */
@@ -37,9 +36,9 @@ class AppEvent extends \yii\db\ActiveRecord
             [['event_date'], 'safe'],
             [['event_address', 'description'], 'string'],
             [[ 'event_id'], 'integer'],
+            [[ 'event_name'], 'string'],
             [['event_venue','event_image', 'related_category','event_date'], 'string', 'max' => 255],
             [['event_phone'], 'string', 'max' => 20],
-            [['eventBanner'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
         ];
     }
 
@@ -57,6 +56,7 @@ class AppEvent extends \yii\db\ActiveRecord
             'description' => 'Description',
             'related_category' => 'Event Category',
             'event_id' => 'Event ID',
+             'event_name' => 'Name',
         ];
     }
 
@@ -74,24 +74,5 @@ class AppEvent extends \yii\db\ActiveRecord
         ]);
 
         return $dataProvider;
-    }
-
-    public function upload()
-    {
-        if ($this->validate()) {
-           $ymd = date("Ymd");
-           $save_path = \Yii::getAlias('@backend') . '/web/uploads/' . $ymd . '/';
-            if (!file_exists($save_path)) {
-                mkdir($save_path, 0777, true);
-            }
-
-            $fileName = Yii::$app->security->generateRandomString(20);
-
-            $this->eventBanner->saveAs($save_path . $fileName .'.' . $this->eventBanner->extension);
-            $this->event_image = $ymd . '/'. $fileName . '.' . $this->eventBanner->extension;
-            return true;
-        } else {
-            return false;
-        }
     }
 }

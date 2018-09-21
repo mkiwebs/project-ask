@@ -19,7 +19,7 @@ class RecommendationDetailsSearch extends RecommendationDetails
     {
         return [
             [['id', 'awarded_points'], 'integer'],
-            [['recommendation_code', 'recommedor_name', 'recommendation_person'], 'safe'],
+            [['recommendation_code', 'recommedor_name', 'recommended_person'], 'safe'],
         ];
     }
 
@@ -47,11 +47,6 @@ class RecommendationDetailsSearch extends RecommendationDetails
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=>[
-                'defaultOrder'=>[
-                    'id'=>SORT_DESC,
-                ]
-            ]
         ]);
 
         $this->load($params);
@@ -70,7 +65,7 @@ class RecommendationDetailsSearch extends RecommendationDetails
 
         $query->andFilterWhere(['like', 'recommendation_code', $this->recommendation_code])
             ->andFilterWhere(['like', 'recommedor_name', $this->recommedor_name])
-            ->andFilterWhere(['like', 'recommendation_person', $this->recommendation_person]);
+            ->andFilterWhere(['like', 'recommended_person', $this->recommended_person]);
 
         return $dataProvider;
     }

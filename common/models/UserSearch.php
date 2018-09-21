@@ -19,7 +19,7 @@ class UserSearch extends User
     {
         return [
             [['id', 'status'], 'integer'],
-            [['full_name', 'username', 'email', 'auth_key', 'facebook_id', 'facebook_name', 'google_id', 'created_at', 'favourite_question', 'phone', 'password_hash', 'password_reset_token', 'date_modified','recommend_code', 'updated_at'], 'safe'],
+            [['full_name', 'username', 'email', 'auth_key', 'facebook_id', 'facebook_name', 'google_id', 'created_at', 'favourite_question', 'phone', 'password_hash', 'password_reset_token', 'date_modified', 'updated_at'], 'safe'],
         ];
     }
 
@@ -47,11 +47,6 @@ class UserSearch extends User
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=>[
-                'defaultOrder'=>[
-                    'id'=>SORT_DESC,
-                ]
-            ]
         ]);
 
         $this->load($params);
@@ -80,7 +75,7 @@ class UserSearch extends User
             ->andFilterWhere(['like', 'google_id', $this->google_id])
             ->andFilterWhere(['like', 'favourite_question', $this->favourite_question])
             ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'recommend_code', $this->recommend_code])
+            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
             ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token]);
 
         return $dataProvider;

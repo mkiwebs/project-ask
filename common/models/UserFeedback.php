@@ -47,9 +47,4 @@ class UserFeedback extends \yii\db\ActiveRecord
             'message' => 'Message',
         ];
     }
-
-    public function getUser()
-    {
-       return  $this->hasOne(User::className(),['id' => 'user_id']);
-    }
 }

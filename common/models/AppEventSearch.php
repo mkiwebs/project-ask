@@ -18,7 +18,7 @@ class AppEventSearch extends AppEvent
     public function rules()
     {
         return [
-            [['event_date', 'event_venue', 'event_address', 'event_phone', 'description', 'related_category'], 'safe'],
+            [['event_date', 'event_venue', 'event_name', 'event_address', 'event_phone', 'description', 'related_category'], 'safe'],
             [['event_image', 'event_id'], 'integer'],
         ];
     }
@@ -47,11 +47,6 @@ class AppEventSearch extends AppEvent
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=>[
-                'defaultOrder'=>[
-                    'event_id'=>SORT_DESC,
-                ]
-            ]
         ]);
 
         $this->load($params);

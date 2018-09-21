@@ -56,39 +56,39 @@ class SidebarWidget extends Widget
 
 		   //events menu
            //start jobs
-            $app_job[] = array(
-                'id'       => 'add-job',
-                'name'     => "Add Job",
-                'href'     => Url::toRoute(['job/create']),
-                'children' => array()
-                );
-            $app_job[] = array(
-                'id'       => 'list-job',
-                'name'     => "Jobs",
-                'href'     => Url::toRoute(['job/index']),
-                'children' => array()
-                );
-             $app_job[] = array(
-                'id'       => 'job-category',
-                'name'     => "Add Job Category",
-                'href'     => Url::toRoute(['job-category/create']),
-                'children' => array()
-                );
-             $app_job[] = array(
-                'id'       => 'job-category',
-                'name'     => "Job Categories",
-                'href'     => Url::toRoute(['job-category/index']),
-                'children' => array()
-                );
-             $data['menus'][] = array(
-                        'id'       => 'menu-jobs',
-                        'icon'     => 'far fa-briefcase',
-                        'name'     => "Jobs",
-                        'href'     => '',
-                        'children' => $app_job
-                    );
+            // $app_job[] = array(
+            //     'id'       => 'add-job',
+            //     'name'     => "Add Job",
+            //     'href'     => Url::toRoute(['job/create']),
+            //     'children' => array()
+            //     );
+            // $app_job[] = array(
+            //     'id'       => 'list-job',
+            //     'name'     => "Jobs",
+            //     'href'     => Url::toRoute(['job/index']),
+            //     'children' => array()
+            //     );
+            //  $app_job[] = array(
+            //     'id'       => 'job-category',
+            //     'name'     => "Add Job Category",
+            //     'href'     => Url::toRoute(['job-category/create']),
+            //     'children' => array()
+            //     );
+            //  $app_job[] = array(
+            //     'id'       => 'job-category',
+            //     'name'     => "Job Categories",
+            //     'href'     => Url::toRoute(['job-category/index']),
+            //     'children' => array()
+            //     );
+            //  $data['menus'][] = array(
+            //             'id'       => 'menu-jobs',
+            //             'icon'     => 'far fa-briefcase',
+            //             'name'     => "Jobs",
+            //             'href'     => '',
+            //             'children' => $app_job
+            //         );
 
-                //end job
+            //     //end job
             //start business-list
              $business_list[] = array(
                  'id'       => 'add-business',
@@ -247,78 +247,132 @@ class SidebarWidget extends Widget
 		    );
 
         // blog Articles menu
-		    $blog_articles[]= array(
+		    // $blog_articles[]= array(
+      //           'id'       => 'user-settings',
+      //           'name'	   => "List",
+      //           'href'     => Url::toRoute(['article/index']),
+      //           'children' => array()
+      //       );
+      //       $blog_articles[]= array(
+      //           'id'       => 'general-settings',
+      //           'name'	   => "Add Article",
+      //           'href'     => Url::toRoute(['article/create']),
+      //           'children' => array()
+      //       );
+      //       $blog_articles[]= array(
+      //           'id'       => 'add-trending-news',
+      //           'name'     => "Add Trending News",
+      //           'href'     => Url::toRoute(['trending-news/create']),
+      //           'children' => array()
+      //       );
+      //       $blog_articles[]= array(
+      //           'id'       => 'general-settings',
+      //           'name'     => "Trending News",
+      //           'href'     => Url::toRoute(['trending-news/index']),
+      //           'children' => array()
+      //       );
+		    // $data['menus'][] = array(
+		    // 	'id'       => 'menu-settings',
+		    // 	'icon'	   => 'fas fa-book',
+		    // 	'name'	   => "Articles",
+		    // 	'href'     => '',
+      //           'children' => $blog_articles
+		    // );
+
+                    // memes menu
+            $memes[]= array(
                 'id'       => 'user-settings',
-                'name'	   => "List",
-                'href'     => Url::toRoute(['article/index']),
+                'name'     => "Meme List",
+                'href'     => Url::toRoute(['meme/index']),
                 'children' => array()
             );
-            $blog_articles[]= array(
+            $memes[]= array(
                 'id'       => 'general-settings',
-                'name'	   => "Add Article",
-                'href'     => Url::toRoute(['article/create']),
+                'name'     => "Add Meme",
+                'href'     => Url::toRoute(['meme/create']),
                 'children' => array()
             );
-            $blog_articles[]= array(
-                'id'       => 'add-trending-news',
-                'name'     => "Add Trending News",
-                'href'     => Url::toRoute(['trending-news/create']),
-                'children' => array()
-            );
-            $blog_articles[]= array(
+            $memes[]= array(
                 'id'       => 'general-settings',
-                'name'     => "Trending News",
-                'href'     => Url::toRoute(['trending-news/index']),
+                'name'     => "Comment List",
+                'href'     => Url::toRoute(['meme-comment/index']),
                 'children' => array()
             );
-		    $data['menus'][] = array(
-		    	'id'       => 'menu-settings',
-		    	'icon'	   => 'fas fa-book',
-		    	'name'	   => "Articles",
-		    	'href'     => '',
-                'children' => $blog_articles
-		    );
+            $data['menus'][] = array(
+                'id'       => 'menu-settings',
+                'icon'     => 'fas fa-book',
+                'name'     => "Meme",
+                'href'     => '',
+                'children' => $memes
+            );
+
+            // IQ quiz
+            $qtest[]= array(
+                'id'       => 'user-settings',
+                'name'     => "Quiz List",
+                'href'     => Url::toRoute(['qtest/index']),
+                'children' => array()
+            );
+            $qtest[]= array(
+                'id'       => 'general-settings',
+                'name'     => "Add Quiz",
+                'href'     => Url::toRoute(['qtest/create']),
+                'children' => array()
+            );
+            $qtest[]= array(
+                'id'       => 'general-settings',
+                'name'     => "Comment List",
+                'href'     => Url::toRoute(['qcomment/index']),
+                'children' => array()
+            );
+            $data['menus'][] = array(
+                'id'       => 'menu-settings',
+                'icon'     => 'fas fa-book',
+                'name'     => "IQ Questions",
+                'href'     => '',
+                'children' => $qtest
+            );
         // blog categories menu
-		    $blog_categories[]= array(
-                'id'       => 'user-settings',
-                'name'	   => "List",
-                'href'     => Url::toRoute(['category/index']),
-                'children' => array()
-            );
-            $blog_categories[]= array(
-                'id'       => 'general-settings',
-                'name'	   => "Add Category",
-                'href'     => Url::toRoute(['category/create']),
-                'children' => array()
-            );
-		    $data['menus'][] = array(
-		    	'id'       => 'menu-settings',
-		    	'icon'	   => 'fas fa-book',
-		    	'name'	   => "Blog Categories",
-		    	'href'     => '',
-                'children' => $blog_categories
-		    );
+		    // $blog_categories[]= array(
+      //           'id'       => 'user-settings',
+      //           'name'	   => "List",
+      //           'href'     => Url::toRoute(['category/index']),
+      //           'children' => array()
+      //       );
+      //       $blog_categories[]= array(
+      //           'id'       => 'general-settings',
+      //           'name'	   => "Add Category",
+      //           'href'     => Url::toRoute(['category/create']),
+      //           'children' => array()
+      //       );
+		    // $data['menus'][] = array(
+		    // 	'id'       => 'menu-settings',
+		    // 	'icon'	   => 'fas fa-book',
+		    // 	'name'	   => "Blog Categories",
+		    // 	'href'     => '',
+      //           'children' => $blog_categories
+		    // );
 		      
             //blog tags menu
-		    $blog_tags[]= array(
-                'id'       => 'user-settings',
-                'name'	   => "List",
-                'href'     => Url::toRoute(['tag/index']),
-                'children' => array()
-            );
-            $blog_tags[]= array(
-                'id'       => 'general-settings',
-                'name'	   => "Add Tags",
-                'href'     => Url::toRoute(['tag/create']),
-                'children' => array()
-            );
-		    $data['menus'][] = array(
-		    	'id'       => 'menu-settings',
-		    	'icon'	   => ' fa-wrench',
-		    	'name'	   => "Blog Tags",
-		    	'href'     => '',
-                'children' => $blog_tags
-		    );
+		    // $blog_tags[]= array(
+      //           'id'       => 'user-settings',
+      //           'name'	   => "List",
+      //           'href'     => Url::toRoute(['tag/index']),
+      //           'children' => array()
+      //       );
+      //       $blog_tags[]= array(
+      //           'id'       => 'general-settings',
+      //           'name'	   => "Add Tags",
+      //           'href'     => Url::toRoute(['tag/create']),
+      //           'children' => array()
+      //       );
+		    // $data['menus'][] = array(
+		    // 	'id'       => 'menu-settings',
+		    // 	'icon'	   => ' fa-wrench',
+		    // 	'name'	   => "Blog Tags",
+		    // 	'href'     => '',
+      //           'children' => $blog_tags
+		    // );
 		//app statistics menu
 		    $app_statistics[]= array(
                 'id'       => 'user-requests',
