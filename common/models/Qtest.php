@@ -132,7 +132,7 @@ class Qtest extends \yii\db\ActiveRecord
 
     //new IQ questions
 
-        public  static  function  newquiz(){
+    public  static  function  newquiz(){
         $expression = new Expression('DATE(NOW()) - INTERVAL 1 DAY');
         $count = (new Query())
             ->from(self::tableName())

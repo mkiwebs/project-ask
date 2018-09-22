@@ -34,10 +34,10 @@ class MemeComment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['content', 'addtime', 'uid', 'dataid'], 'required'],
+            [['content','uid'], 'required'],
             [['content'], 'string'],
             [['uid', 'dataid', 'status', 'recomid', 'pid', 'has_sub', 'likes'], 'integer'],
-            [['addtime'], 'string', 'max' => 100],
+            [['addtime', 'date_updated'], 'safe'],
         ];
     }
 
@@ -57,6 +57,37 @@ class MemeComment extends \yii\db\ActiveRecord
             'pid' => 'Pid',
             'has_sub' => 'Has Sub',
             'likes' => 'Likes',
+            'date_updated' => 'Date Updated',
         ];
+    }
+    public function getUser()
+    {
+          return  $this->hasOne(User::className(),['id' => 'uid']);
+    }
+
+public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ( $this->isNewRecord ) {
+
+              //$this->user_id =   Yii::$app->user->identity->id;
+              $this->addtime = $this->setTimeText();
+
+            } else {
+               $this->date_updated = $this->setTimeText();
+            }
+            
+            return true;
+        } else {
+
+            return false;
+        }
+    }
+
+
+    public function setTimeText() {
+
+        return strtotime( date("YmdHis"));
+
     }
 }

@@ -44,11 +44,11 @@ class QtestController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-    public function actionComment($id){
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+    // public function actionComment($id){
+    //     return $this->render('view', [
+    //         'model' => $this->findModel($id),
+    //     ]);
+    // }
 
     /**
      * Displays a single Qtest model.
@@ -149,5 +149,41 @@ class QtestController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    public function actionComment($id)
+    {
+        
+          $model = new Qtest();
+
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return $this->redirect(['view', 'id' => $model->id]);
+        // } else {
+        //     return $this->render('create', [
+        //         'model' => $model,
+        //     ]);
+        // }
+
+        $question = $this->findModel($id);
+
+        if (isset($_POST['Meme']) ) {
+            $answer = $_POST['Meme'];
+            $model->meme_id = $id;
+            $model->text_content = $answer['content'];
+            $model->user_id =   Yii::$app->user->identity->id;
+            if ($model->save()) {
+               
+               return $this->redirect(['view', 'id' => $id]);
+            } else {
+                return false;
+            }
+        } else {
+            //$test = $_POST['Question'];
+            return $this->render('comment', [
+                'model' => $model,
+                'question' => $question,
+            ]);
+        }
     }
 }

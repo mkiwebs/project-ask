@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\Meme;
 use common\models\MemeSearch;
+use common\models\MemeComment;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -31,7 +32,7 @@ class MemeController extends Controller
                     'allow' => true,
                 ],
                 [
-                    'actions' => ['view','answer','update', 'create', 'delete', 'index'],
+                    'actions' => ['view','comment','update', 'create', 'delete', 'index'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -128,11 +129,45 @@ class MemeController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionComment($id)
-    {
-        $this->findModel($id)->delete();
+    // public function actionComment($id)
+    // {
+    //     $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+    //     return $this->redirect(['create']);
+    // }
+public function actionComment($id)
+    {
+        
+        $model = new MemeComment();
+
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return $this->redirect(['view', 'id' => $model->id]);
+        // } else {
+        //     return $this->render('create', [
+        //         'model' => $model,
+        //     ]);
+        // }
+
+        $question = $this->findModel($id);
+
+        if (isset($_POST['Meme']) ) {
+            $answer = $_POST['Meme'];
+            $model->meme_id = $id;
+            $model->text_content = $answer['content'];
+            $model->user_id =   Yii::$app->user->identity->id;
+            if ($model->save()) {
+               
+               return $this->redirect(['view', 'id' => $id]);
+            } else {
+                return false;
+            }
+        } else {
+            //$test = $_POST['Question'];
+            return $this->render('comment', [
+                'model' => $model,
+                'question' => $question,
+            ]);
+        }
     }
 
     /**
