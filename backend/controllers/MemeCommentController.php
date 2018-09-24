@@ -63,17 +63,44 @@ class MemeCommentController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+    // public function actionCreate()
+    // {
+    //     $model = new MemeComment();
+
+    //     if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    //         return $this->redirect(['view', 'id' => $model->id]);
+    //     }
+
+    //     return $this->render('create', [
+    //         'model' => $model,
+    //     ]);
+    // }
+
     public function actionCreate()
     {
-        $model = new MemeComment();
+        
+        if ( ! is_null( Yii::$app->request->get('id') ) &&  ! is_null( Yii::$app->request->get('meme') )) {
+            
+            $question = str_replace('-', ' ', trim( Yii::$app->request->get('question') ) );
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+            $model = new MemeComment();
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            $model->dataid = Yii::$app->request->get('id');
+            // $model->user_id =   Yii::$app->user->identity->id;
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('create', [
+                    'model' => $model,
+                    'question' => $question,
+                ]);
+            }
+        }  else {
+
+                throw new NotFoundHttpException('The requested page does not exist.');
+            }
+
     }
 
     /**

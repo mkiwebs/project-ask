@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
              'attribute' =>'category',
              'value'  => 'blogCategory.category_name',
-             'filter' => $categoryDropdown
+             // 'filter' => $categoryDropdown
              //'filter' => BlogArticle::dropDown('BlogArticle','category_id','category_id','category_name')
              //Arrayhelper::map(BlogCategory::find()->orderBy('category_id')->asArray()->all(),'category_id','category_name');
             ],

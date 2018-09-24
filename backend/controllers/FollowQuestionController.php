@@ -3,17 +3,17 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\QtestAnswer;
-use common\models\QtestAnswerSearch;
+use common\models\FollowQuestion;
+use common\models\FollowQuestionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * QtestAnswerController implements the CRUD actions for QtestAnswer model.
+ * FollowQuestionController implements the CRUD actions for FollowQuestion model.
  */
-class QtestAnswerController extends Controller
-{ 
+class FollowQuestionController extends Controller
+{
     public $layout= '@app/views/layouts/admin';
     /**
      * @inheritdoc
@@ -31,12 +31,12 @@ class QtestAnswerController extends Controller
     }
 
     /**
-     * Lists all QtestAnswer models.
+     * Lists all FollowQuestion models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new QtestAnswerSearch();
+        $searchModel = new FollowQuestionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,7 +46,7 @@ class QtestAnswerController extends Controller
     }
 
     /**
-     * Displays a single QtestAnswer model.
+     * Displays a single FollowQuestion model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -59,39 +59,25 @@ class QtestAnswerController extends Controller
     }
 
     /**
-     * Creates a new QtestAnswer model.
+     * Creates a new FollowQuestion model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-   public function actionCreate()
+    public function actionCreate()
     {
-        
-        if ( ! is_null( Yii::$app->request->get('id') ) &&  ! is_null( Yii::$app->request->get('meme') )) {
-            
-            $question = str_replace('-', ' ', trim( Yii::$app->request->get('meme') ) );
+        $model = new FollowQuestion();
 
-            $model = new QtestAnswer();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
 
-            $model->qid = Yii::$app->request->get('id');
-            // $model->user_id =   Yii::$app->user->identity->id;
-
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            } else {
-                return $this->render('create', [
-                    'model' => $model,
-                    'meme' => $question,
-                ]);
-            }
-        }  else {
-
-                throw new NotFoundHttpException('The requested page does not exist.');
-            }
-
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Updates an existing QtestAnswer model.
+     * Updates an existing FollowQuestion model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -111,7 +97,7 @@ class QtestAnswerController extends Controller
     }
 
     /**
-     * Deletes an existing QtestAnswer model.
+     * Deletes an existing FollowQuestion model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -125,15 +111,15 @@ class QtestAnswerController extends Controller
     }
 
     /**
-     * Finds the QtestAnswer model based on its primary key value.
+     * Finds the FollowQuestion model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return QtestAnswer the loaded model
+     * @return FollowQuestion the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = QtestAnswer::findOne($id)) !== null) {
+        if (($model = FollowQuestion::findOne($id)) !== null) {
             return $model;
         }
 

@@ -186,8 +186,19 @@ class SidebarWidget extends Widget
             );
             $app_questions[]= array(
                 'id'       => 'general-settings',
-                'name'	   => "Questions List",
+                'name'     => "Questions List",
                 'href'     => Url::toRoute(['question/index']),
+                'children' => array()
+            );            
+            $app_questions[]= array(
+                'id'       => 'general-settings',
+                'name'     => "Questions Answers",
+                'href'     => Url::toRoute(['question-answer/index']),
+                'children' => array()
+            );            
+            $app_questions[]= array(
+                'name'	   => "Questions Follow",
+                'href'     => Url::toRoute(['follow-question/index']),
                 'children' => array()
             );
  
@@ -290,6 +301,12 @@ class SidebarWidget extends Widget
                 'id'       => 'general-settings',
                 'name'     => "Add Meme",
                 'href'     => Url::toRoute(['meme/create']),
+                'children' => array()
+            );            
+            $memes[]= array(
+                'id'       => 'general-settings',
+                'name'     => "Meme Likes",
+                'href'     => Url::toRoute(['meme-like/index']),
                 'children' => array()
             );
             $memes[]= array(

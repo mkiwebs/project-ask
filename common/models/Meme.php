@@ -102,6 +102,22 @@ class Meme extends \yii\db\ActiveRecord
             'likes',
             'shares' ,
             'comments',
+            'comments' => function ($model) {
+                            $count = MemeComment::find()
+                                      ->where(['meme_id' => $model->id])
+                                      ->count();
+                            if ($count > 0  && $count == 1 ) {
+
+                               $count = $count." Comment";
+
+                            } elseif ($count > 1 ) {
+                                $count = $count." Comments";
+                            } else {
+                                $count = " No Comment yet";
+                            }
+                            
+                            return $count;
+                        },
             'status' ,
             'text_content' ,
             'dataid' ,

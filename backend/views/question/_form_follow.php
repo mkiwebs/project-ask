@@ -12,11 +12,10 @@ SummernoteAsset::register($this);
 ?>
 
 <div class="question-form">
-  <?= $meme->text_content ?>  
+    <h4> <?= $question->content ?> </h4> 
     <?php $form = ActiveForm::begin(); ?>
 
-	<?= $form->field($model, 'content')->textarea(['rows' => 6]);?>
-	<?= $form->field($model, 'uid')->textInput();?>
+	<?= $form->field($model, 'answer_content')->textarea(['rows' => 6]);?>
 
     <div class="form-group">
         <?= Html::submitButton('Submit', ['class' => 'btn btn-success']) ?>

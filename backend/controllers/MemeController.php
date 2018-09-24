@@ -6,6 +6,7 @@ use Yii;
 use common\models\Meme;
 use common\models\MemeSearch;
 use common\models\MemeComment;
+use common\models\MemeLike;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -32,7 +33,7 @@ class MemeController extends Controller
                     'allow' => true,
                 ],
                 [
-                    'actions' => ['view','comment','update', 'create', 'delete', 'index'],
+                    'actions' => ['view','comment','update', 'create', 'delete','like', 'index'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -148,13 +149,13 @@ public function actionComment($id)
         //     ]);
         // }
 
-        $question = $this->findModel($id);
+        $meme = $this->findModel($id);
 
         if (isset($_POST['Meme']) ) {
-            $answer = $_POST['Meme'];
+            $comment = $_POST['Meme'];
             $model->meme_id = $id;
-            $model->text_content = $answer['content'];
-            $model->user_id =   Yii::$app->user->identity->id;
+            $model->text_content = $comment['content'];
+            $model->user_id =   $answer['uid'];
             if ($model->save()) {
                
                return $this->redirect(['view', 'id' => $id]);
@@ -165,7 +166,42 @@ public function actionComment($id)
             //$test = $_POST['Question'];
             return $this->render('comment', [
                 'model' => $model,
-                'question' => $question,
+                'meme' => $meme,
+            ]);
+        }
+    }
+
+
+    public function actionLike($id)
+    {
+        
+        $model = new MemeLike();
+
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return $this->redirect(['view', 'id' => $model->id]);
+        // } else {
+        //     return $this->render('create', [
+        //         'model' => $model,
+        //     ]);
+        // }
+
+        $question = $this->findModel($id);
+
+        if (isset($_POST['MemeLike']) ) {
+            $memelike = $_POST['MemeLike'];
+            $model->meme_id = $id;
+            $model->text_content = $memelike['uid'];
+            if ($model->save()) {
+               
+               return $this->redirect(['view', 'id' => $id]);
+            } else {
+                return false;
+            }
+        } else {
+            //$test = $_POST['Question'];
+            return $this->render('like', [
+                'model' => $model,
+                'memelike' => $memelike,
             ]);
         }
     }
@@ -184,5 +220,14 @@ public function actionComment($id)
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function getMeme()
+    {
+        return  $this->hasOne(Meme::className(),['id' => 'meme_id']);
+    }
+    public function getMemeID()
+    {
+        return  $this->hasOne(Meme::className(),['id' => 'dataid']);
     }
 }

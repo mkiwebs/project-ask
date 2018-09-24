@@ -31,7 +31,7 @@ class QuestionController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['view','answer','update', 'create', 'delete', 'index'],
+                        'actions' => ['view','answer','update', 'create', 'delete', 'index','follow'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -151,6 +151,32 @@ class QuestionController extends Controller
         } else {
             //$test = $_POST['Question'];
             return $this->render('answer', [
+                'model' => $model,
+                'question' => $question,
+            ]);
+        }
+    }
+
+    public function actionFollow($id)
+    {
+        
+        $model = new QuestionFollow();
+
+        $question = $this->findModel($id);
+
+        if (isset($_POST['Question']) ) {
+            $answer = $_POST['Question'];
+            $model->question_id = $id;
+            $model->uid = $answer['uid'];
+            if ($model->save()) {
+               
+               return $this->redirect(['view', 'id' => $id]);
+            } else {
+                return false;
+            }
+        } else {
+            //$test = $_POST['Question'];
+            return $this->render('follow', [
                 'model' => $model,
                 'question' => $question,
             ]);

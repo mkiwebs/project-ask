@@ -3,17 +3,17 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\QtestAnswer;
-use common\models\QtestAnswerSearch;
+use common\models\MemeLike;
+use common\models\MemeLikeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * QtestAnswerController implements the CRUD actions for QtestAnswer model.
+ * MemeLikeController implements the CRUD actions for MemeLike model.
  */
-class QtestAnswerController extends Controller
-{ 
+class MemeLikeController extends Controller
+{
     public $layout= '@app/views/layouts/admin';
     /**
      * @inheritdoc
@@ -30,13 +30,14 @@ class QtestAnswerController extends Controller
         ];
     }
 
+
     /**
-     * Lists all QtestAnswer models.
+     * Lists all MemeLike models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new QtestAnswerSearch();
+        $searchModel = new MemeLikeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,7 +47,7 @@ class QtestAnswerController extends Controller
     }
 
     /**
-     * Displays a single QtestAnswer model.
+     * Displays a single MemeLike model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -59,20 +60,20 @@ class QtestAnswerController extends Controller
     }
 
     /**
-     * Creates a new QtestAnswer model.
+     * Creates a new MemeLike model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-   public function actionCreate()
+    public function actionCreate()
     {
         
         if ( ! is_null( Yii::$app->request->get('id') ) &&  ! is_null( Yii::$app->request->get('meme') )) {
             
-            $question = str_replace('-', ' ', trim( Yii::$app->request->get('meme') ) );
+            $meme = str_replace('-', ' ', trim( Yii::$app->request->get('meme') ) );
 
-            $model = new QtestAnswer();
+            $model = new MemeLike();
 
-            $model->qid = Yii::$app->request->get('id');
+            $model->meme_id = Yii::$app->request->get('id');
             // $model->user_id =   Yii::$app->user->identity->id;
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -80,7 +81,7 @@ class QtestAnswerController extends Controller
             } else {
                 return $this->render('create', [
                     'model' => $model,
-                    'meme' => $question,
+                    'meme' => $meme,
                 ]);
             }
         }  else {
@@ -91,7 +92,7 @@ class QtestAnswerController extends Controller
     }
 
     /**
-     * Updates an existing QtestAnswer model.
+     * Updates an existing MemeLike model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -111,7 +112,7 @@ class QtestAnswerController extends Controller
     }
 
     /**
-     * Deletes an existing QtestAnswer model.
+     * Deletes an existing MemeLike model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -125,18 +126,53 @@ class QtestAnswerController extends Controller
     }
 
     /**
-     * Finds the QtestAnswer model based on its primary key value.
+     * Finds the MemeLike model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return QtestAnswer the loaded model
+     * @return MemeLike the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = QtestAnswer::findOne($id)) !== null) {
+        if (($model = MemeLike::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionLike($id)
+    {
+        
+        $model = new MemeLike();
+
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return $this->redirect(['view', 'id' => $model->id]);
+        // } else {
+        //     return $this->render('create', [
+        //         'model' => $model,
+        //     ]);
+        // }
+
+        $meme = $this->findModel($id);
+
+        if (isset($_POST['Question']) ) {
+            $like = $_POST['Meme'];
+            $model->meme_id = $id;
+            $model->answer_content = $answer['uid'];
+            $model->user_id =   Yii::$app->user->identity->id;
+            if ($model->save()) {
+               
+               return $this->redirect(['view', 'id' => $id]);
+            } else {
+                return false;
+            }
+        } else {
+            //$test = $_POST['Question'];
+            return $this->render('like', [
+                'model' => $model,
+                'question' => $question,
+            ]);
+        }
     }
 }

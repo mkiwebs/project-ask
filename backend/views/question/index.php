@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'contentOptions' => ['style' => ['max-width' => '300px', 'height' => '100px']]
                          //'contentOptions' => ['class' => 'text-wrap']
             ],
+            
             'date_added:date',
             //'date_updated',
             'answered',

@@ -32,9 +32,10 @@ class QtestAnswer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['uid', 'qid', 'content', 'addtime'], 'required'],
-            [['uid', 'qid', 'content', 'addtime', 'likes', 'status'], 'integer'],
+            [['uid', 'content'], 'required'],
+            [['uid', 'qid', 'addtime', 'likes', 'status'], 'integer'],
             [['date_updated'], 'string', 'max' => 250],
+            [['content'], 'string'],
         ];
     }
 
@@ -53,5 +54,27 @@ class QtestAnswer extends \yii\db\ActiveRecord
             'date_updated' => 'Date Updated',
             'status' => 'Status',
         ];
+    }
+
+    public function getTimetext()
+    {
+        return date("d M Y",strtotime( $this->addtime ) );
+    }
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+              $this->addtime = date("YmdHis");
+              // $this->date_updated = date("YmdHis");
+            } else {
+               $this->date_updated = date("YmdHis");
+               //$this->question_status = self::STATUS_ANSWERED;
+            }
+            
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

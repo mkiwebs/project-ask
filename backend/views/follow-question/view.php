@@ -4,20 +4,17 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Meme */
+/* @var $model common\models\FollowQuestion */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Memes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Follow Questions', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="meme-view">
+<div class="follow-question-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Comment', ['meme-comment/create', 'id' => $model->id,'meme'=> strtolower( str_replace(' ', '-', trim( $model->text_content )) ) ], ['class' => 'btn btn-primary']) ?>
-
-        <?= Html::a('Like', ['meme-like/create', 'id' => $model->id,'meme'=> strtolower( str_replace(' ', '-', trim( $model->text_content )) ) ], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -33,14 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'uid',
+            'quiz_id',
             'addtime',
-            'meme_url:url',
-            'likes',
-            'shares',
-            'comments',
-            'status',
-            'text_content:ntext',
-            'dataid',
         ],
     ]) ?>
 
