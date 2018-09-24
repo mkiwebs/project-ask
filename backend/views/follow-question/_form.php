@@ -14,10 +14,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'uid')->textInput() ?>
 
-    <?= $form->field($model, 'quiz_id')->textInput() ?>
-
-    <?= $form->field($model, 'addtime')->textInput(['maxlength' => true]) ?>
-
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

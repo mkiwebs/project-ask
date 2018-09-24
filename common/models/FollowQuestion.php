@@ -28,7 +28,7 @@ class FollowQuestion extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['uid', 'quiz_id', 'addtime'], 'required'],
+            [['uid'], 'required'],
             [['uid', 'quiz_id'], 'integer'],
             [['addtime'], 'string', 'max' => 100],
         ];
@@ -45,5 +45,32 @@ class FollowQuestion extends \yii\db\ActiveRecord
             'quiz_id' => 'Quiz ID',
             'addtime' => 'Addtime',
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ( $this->isNewRecord ) {
+
+              //$this->user_id =   Yii::$app->user->identity->id;
+              $this->addtime = $this->setTimeText();
+
+            }
+            return true;
+        } else {
+
+            return false;
+        }
+    }
+    public function setTimeText() {
+
+        return strtotime( date("YmdHis"));
+
+    }
+
+        //get username 
+    public function getUser()
+    {
+       return  $this->hasOne(User::className(),['id' => 'uid']);
     }
 }

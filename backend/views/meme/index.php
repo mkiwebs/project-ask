@@ -34,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'comments',
             'status',
             'text_content:ntext',
-            'dataid',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

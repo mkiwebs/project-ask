@@ -62,18 +62,43 @@ class FollowQuestionController extends Controller
      * Creates a new FollowQuestion model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
-     */
+    //  */
+    // public function actionCreate()
+    // {
+    //     $model = new FollowQuestion();
+
+    //     if ($model->load(Yii::$app->request->post()) && $model->save()) {
+    //         return $this->redirect(['view', 'id' => $model->id]);
+    //     }
+
+    //     return $this->render('create', [
+    //         'model' => $model,
+    //     ]);
+    // }
+
     public function actionCreate()
     {
-        $model = new FollowQuestion();
+        
+        if ( ! is_null( Yii::$app->request->get('id') ) &&  ! is_null( Yii::$app->request->get('question') )) {
+            
+            $question = str_replace('-', ' ', trim( Yii::$app->request->get('question') ) );
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+            $model = new FollowQuestion();
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+            $model->quiz_id = Yii::$app->request->get('id');
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('create', [
+                    'model' => $model,
+                    'question' => $question,
+                ]);
+            }
+        }  else {
+
+                throw new NotFoundHttpException('The requested page does not exist.');
+            }
+
     }
 
     /**
@@ -125,4 +150,6 @@ class FollowQuestionController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
 }

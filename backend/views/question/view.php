@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Answer', ['question-answer/create', 'id' => $model->id,'question'=> strtolower( str_replace(' ', '-', trim( $model->content )) ) ], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Follow', ['question-follow/create', 'id' => $model->id,'question'=> strtolower( str_replace(' ', '-', trim( $model->content )) ) ], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Follow', ['follow-question/create', 'id' => $model->id,'question'=> strtolower( str_replace(' ', '-', trim( $model->content )) ) ], ['class' => 'btn btn-primary']) ?>
         <!-- <?= Html::a('Answer', ['answer', 'id' => $model->id], ['class' => 'btn btn-primary']) ?> -->
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
