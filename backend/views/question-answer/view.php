@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h4><?= Html::encode( $model->question->content ) ?></h4>
 
     <p>
+        <?= Html::a('Like', ['like-answer/create', 'id' => $model->id,'question'=> strtolower( str_replace(' ', '-', trim( $model->answer_content )) ) ], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Update', 
                 [
                     'update',

@@ -34,7 +34,7 @@ class QuestionController extends \yii\rest\ActiveController
         'query' => \common\models\Question::find()
         ->andHaving(['<=', 'username', 5]),
         'pagination' => [
-            'defaultPageSize' => 1000,
+            'defaultPageSize' => 100,
         ],
         'sort'=>[
                 'defaultOrder'=>[

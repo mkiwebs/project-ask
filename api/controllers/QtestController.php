@@ -32,7 +32,7 @@ class QtestController extends \yii\rest\ActiveController
     \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
     $questions = new ActiveDataProvider([
         'query' => \common\models\Qtest::find()
-        ->andHaving(['<=', 'username', 5]),
+        ->andHaving(['<=', 'uid', 100]),
         'pagination' => [
             'defaultPageSize' => 1000,
         ],
@@ -57,13 +57,8 @@ class QtestController extends \yii\rest\ActiveController
       $model = new Qtest();
 	    $params = Yii::$app->request->post();
 	    $model->content  = $params['content'];
-	    $model->username = $params['username'];
+	    $model->uid = $params['username'];
 
-      if ( isset( $params['category'] ) ) {
-        $model->question_category = $params['category'];
-      } else {
-          $model->question_category = 1;
-      }
 	    // $model->email=$params['email'];
     
   		if ($model->save()) {
@@ -270,7 +265,7 @@ class QtestController extends \yii\rest\ActiveController
 
     if ($params = Yii::$app->request->post()) {
       
-        $question_id = (int)$params['question_id'];
+        $question_id = (int)$params['qid'];
         //$question_id = (int)4;
 
         $query = \common\models\QuestionAnswer::find()

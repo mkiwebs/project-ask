@@ -29,9 +29,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'user.username',
             'addtime',
             'meme_url:url',
-            'likes',
+            [
+               'attribute' => 'Likes',
+                'value' => function($model) {
+                   return $model-> countLikes($model->id);
+                }
+            ],
             'shares',
-            'comments',
+            [
+               'attribute' =>'Comments',
+                'value' => function($model) {
+                   return $model-> countComments($model->id);
+                }
+            ],
             'status',
             'text_content:ntext',
 

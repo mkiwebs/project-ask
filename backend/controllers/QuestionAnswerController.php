@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\QuestionAnswer;
+use common\models\LikeAnswer;
 use common\models\QuestionAnswerSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -87,6 +88,30 @@ class QuestionAnswerController extends Controller
                 throw new NotFoundHttpException('The requested page does not exist.');
             }
 
+    }
+    public function actionLike($id)
+    {
+        
+        $model = new LikeAnswer();
+        $question = $this->findModel($id);
+
+        if (isset($_POST['MemeLike']) ) {
+            $memelike = $_POST['MemeLike'];
+            $model->meme_id = $id;
+            $model->text_content = $memelike['uid'];
+            if ($model->save()) {
+               
+               return $this->redirect(['view', 'id' => $id]);
+            } else {
+                return false;
+            }
+        } else {
+            //$test = $_POST['Question'];
+            return $this->render('like', [
+                'model' => $model,
+                // 'memelike' => $memelike,
+            ]);
+        }
     }
 
     /**

@@ -83,8 +83,6 @@ public function beforeSave($insert)
             return false;
         }
     }
-
-
     public function setTimeText() {
 
         return strtotime( date("YmdHis"));

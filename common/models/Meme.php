@@ -125,6 +125,24 @@ class Meme extends \yii\db\ActiveRecord
 
         ];
     }
+    //meme comments
+    /*
+    **
+    **
+    *@param $dataid refers to the meme_id(FOREIGN KEY) in memecomment model
+    *You get this?
+    *
+    *****/
+    public function countComments($meme_id){
+        $count = MemeComment::find()->select(['id'])->where(['dataid' => (int)$meme_id])->count();
+       // $sql = "SELECT COUNT(id) as comment_count FROM `meme_comment` WHERE dataid = 4";
+        return $count;
+    }    
+    public function countLikes($meme_id){
+        $count = MemeLike::find()->select(['id'])->where(['meme_id' => (int)$meme_id])->count();
+       // $sql = "SELECT COUNT(id) as comment_count FROM `meme_comment` WHERE dataid = 4";
+        return $count;
+    }
     public function getTimetext()
     {
         return date("d M Y",strtotime( $this->addtime ) );

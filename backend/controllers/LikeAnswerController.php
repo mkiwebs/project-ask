@@ -3,18 +3,17 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Qtest;
-use common\models\QtestSearch;
+use common\models\LikeAnswer;
+use common\models\LikeAnswerSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
- * QtestController implements the CRUD actions for Qtest model.
+ * LikeAnswerController implements the CRUD actions for LikeAnswer model.
  */
-class QtestController extends Controller
-{   public $layout= '@app/views/layouts/admin';
+class LikeAnswerController extends Controller
+{    public $layout= '@app/views/layouts/admin';
     /**
      * @inheritdoc
      */
@@ -31,12 +30,12 @@ class QtestController extends Controller
     }
 
     /**
-     * Lists all Qtest models.
+     * Lists all LikeAnswer models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new QtestSearch();
+        $searchModel = new LikeAnswerSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -44,8 +43,9 @@ class QtestController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
     /**
-     * Displays a single Qtest model.
+     * Displays a single LikeAnswer model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -57,28 +57,40 @@ class QtestController extends Controller
         ]);
     }
 
+    /**
+     * Creates a new LikeAnswer model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
     public function actionCreate()
-        {
-            $model = new Qtest();
+    {
+        
+        if ( ! is_null( Yii::$app->request->get('id') ) &&  ! is_null( Yii::$app->request->get('questionanswer') )) {
+            
+            $meme = str_replace('-', ' ', trim( Yii::$app->request->get('meme') ) );
+
+            $model = new LikeAnswer();
+
+            $model->question_id = Yii::$app->request->get('id');
+            // $model->user_id =   Yii::$app->user->identity->id;
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                $model->questionImage = UploadedFile::getInstance($model, 'questionImage');
-                if ($model->upload()) {
-                    // file is uploaded successfully
-                    $model->save(false);
-                    //$model->trigger(BlogArticle::EVENT_NEW_ARTICLE);
-                  return $this->redirect(['view', 'id' => $model->id]);  
-                }
-                
+                return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
+                    'meme' => $meme,
                 ]);
             }
-        }
+        }  else {
+
+                throw new NotFoundHttpException('The requested page does not exist.');
+            }
+
+    }
 
     /**
-     * Updates an existing Qtest model.
+     * Updates an existing LikeAnswer model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,7 +110,7 @@ class QtestController extends Controller
     }
 
     /**
-     * Deletes an existing Qtest model.
+     * Deletes an existing LikeAnswer model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -112,69 +124,18 @@ class QtestController extends Controller
     }
 
     /**
-     * Finds the Qtest model based on its primary key value.
+     * Finds the LikeAnswer model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Qtest the loaded model
+     * @return LikeAnswer the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Qtest::findOne($id)) !== null) {
+        if (($model = LikeAnswer::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-
-    public function actionComment($id)
-    {
-        
-          $model = new Qtest();
-        $question = $this->findModel($id);
-
-        if (isset($_POST['Meme']) ) {
-            $answer = $_POST['Meme'];
-            $model->meme_id = $id;
-            $model->text_content = $answer['content'];
-            $model->user_id =   Yii::$app->user->identity->id;
-            if ($model->save()) {
-               
-               return $this->redirect(['view', 'id' => $id]);
-            } else {
-                return false;
-            }
-        } else {
-            //$test = $_POST['Question'];
-            return $this->render('comment', [
-                'model' => $model,
-                'question' => $question,
-            ]);
-        }
-    }
-
-    public function actionLike($id)
-    {
-        
-        $model = new Qtest();
-        $question = $this->findModel($id);
-
-        if (isset($_POST['Qtest']) ) {
-            $answer = $_POST['Qtest'];
-            $model->qid = $id;
-            $model->uid = $answer['uid'];
-            if ($model->save()) {
-               return $this->redirect(['view', 'id' => $id]);
-            } else {
-                return false;
-            }
-        } else {
-            //$test = $_POST['Question'];
-            return $this->render('like', [
-                'model' => $model,
-                'question' => $question,
-            ]);
-        }
     }
 }

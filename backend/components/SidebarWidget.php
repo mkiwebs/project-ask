@@ -342,6 +342,12 @@ class SidebarWidget extends Widget
                 'href'     => Url::toRoute(['qcomment/index']),
                 'children' => array()
             );
+            $qtest[]= array(
+                'id'       => 'general-settings',
+                'name'     => "Likes",
+                'href'     => Url::toRoute(['qtest-like/index']),
+                'children' => array()
+            );
             $data['menus'][] = array(
                 'id'       => 'menu-settings',
                 'icon'     => 'fas fa-book',

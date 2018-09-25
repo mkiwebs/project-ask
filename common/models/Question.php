@@ -56,7 +56,8 @@ class Question extends \yii\db\ActiveRecord
             [['username', 'answered_by'], 'string', 'max' => 11],
             [['answered'], 'string', 'max' => 2],
             [['question_category'], 'integer', 'max' => 11],
-            [['question_status'], 'string', 'max' => 20],
+            [['question_status'], 'string', 'max' => 20],   
+            [['answers','likes', 'followers'], 'integer'],
             //[['question_status', 'default', 'value' => self::STATUS_PENDING],'on'=>['create']],
             // [['question_status', 'default', 'value' => self::STATUS_PENDING],'on'=>['create']]
             ['question_status', 'default', 'value' => self::STATUS_PENDING]
@@ -79,6 +80,9 @@ class Question extends \yii\db\ActiveRecord
             'question_answer' => 'Question Answer',
             'answer_date' => 'Answer Date',
             'question_status' => 'Status',
+            'answers' =>'Answers',
+            'likes' =>'Likes',
+            'followers' =>'Follows',
         ];
     }
 
@@ -103,11 +107,12 @@ class Question extends \yii\db\ActiveRecord
             'question_answer',
             'answer_date',
             'question_status',
+            'followers',
             'category' => function ($model)
                           {
                             return $model->category->category_name;
                            },
-            'total_answers' => function ($model) {
+            'answers' => function ($model) {
                             $count = QuestionAnswer::find()
                                       ->where(['question_id' => $model->id])
                                       ->count();
@@ -257,5 +262,17 @@ class Question extends \yii\db\ActiveRecord
     public static function findQuestionById($id)
     {
         return static::findOne(['id' => $id])->content;
+    }
+
+    public function countAnswers($q_id){
+        $count = QuestionAnswer::find()->select(['id'])->where(['question_id' => (int)$q_id])->count();
+       // $sql = "SELECT COUNT(id) as comment_count FROM `meme_comment` WHERE dataid = 4";
+        return $count;
+    }
+
+    public function countFollowers($q_id){
+        $count = FollowQuestion::find()->select(['id'])->where(['quiz_id' => (int)$q_id])->count();
+       // $sql = "SELECT COUNT(id) as comment_count FROM `meme_comment` WHERE dataid = 4";
+        return $count;
     }
 }

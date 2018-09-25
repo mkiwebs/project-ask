@@ -11,7 +11,6 @@ $this->params['breadcrumbs'][] = ['label' => 'Questions', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="question-view">
-
     <p><?= Html::encode($this->title) ?></p>
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -26,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -34,7 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'content:ntext',
             'date_added:date',
             'date_updated:date',
-
             [
               'attribute'=> 'question_category',
               'value' => $model->category->category_name

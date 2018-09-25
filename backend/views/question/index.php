@@ -32,11 +32,24 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             
             'date_added:date',
+            [
+               'attribute' =>'Answers',
+                'value' => function($model) {
+                   return $model-> countAnswers($model->id);
+                }
+            ],
             //'date_updated',
-            'answered',
+            // 'answered',
+            [
+               'attribute' =>'Follows',
+                'value' => function($model) {
+                   return $model-> countFollowers($model->id);
+                }
+            ],
             'answeredby.username',
             //'question_answer:ntext',
             'answer_date:date',
+            'likes',
             [
             'attribute' =>'question_status',
             'value' => function($data){

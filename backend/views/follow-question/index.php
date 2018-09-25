@@ -7,17 +7,17 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\FollowQuestionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Follow Questions';
+$this->title = 'Question Followers Table';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="follow-question-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+<!-- 
     <p>
         <?= Html::a('Create Follow Question', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    </p> -->
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

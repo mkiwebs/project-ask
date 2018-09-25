@@ -105,6 +105,17 @@ class Qtest extends \yii\db\ActiveRecord
         }
     }
 
+    public function countAnswers($q_id){
+        $count = QtestAnswer::find()->select(['id'])->where(['qid' => (int)$q_id])->count();
+       // $sql = "SELECT COUNT(id) as comment_count FROM `meme_comment` WHERE dataid = 4";
+        return $count;
+    } 
+    public function countLikes($q_id){
+        $count = QtestLike::find()->select(['id'])->where(['qid' => (int)$q_id])->count();
+       // $sql = "SELECT COUNT(id) as comment_count FROM `meme_comment` WHERE dataid = 4";
+        return $count;
+    }
+
     /**
      * @inheritdoc
      */
