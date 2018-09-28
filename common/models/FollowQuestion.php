@@ -73,4 +73,18 @@ class FollowQuestion extends \yii\db\ActiveRecord
     {
        return  $this->hasOne(User::className(),['id' => 'uid']);
     }
+
+    public static function likeExists($uid,$quiz_id)
+    {
+     
+        $exists = 0;      
+        $model = self::find()
+            ->where( [ 'quiz_id' => (int)$quiz_id, 'uid' => (int)$uid ] )
+            ->exists();
+        if ( $model === true ) {
+            $exists = 1;
+        } 
+
+        return $exists;
+    }
 }

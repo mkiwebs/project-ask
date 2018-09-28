@@ -11,11 +11,13 @@ $this->params['breadcrumbs'][] = ['label' => 'Questions', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="question-view">
-    <p><?= Html::encode($this->title) ?></p>
-    <p>
+    
+    <div style="margin: 30px;">
+            <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Answer', ['question-answer/create', 'id' => $model->id,'question'=> strtolower( str_replace(' ', '-', trim( $model->content )) ) ], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Follow', ['follow-question/create', 'id' => $model->id,'question'=> strtolower( str_replace(' ', '-', trim( $model->content )) ) ], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Like', ['like-question/create', 'id' => $model->id,'question'=> strtolower( str_replace(' ', '-', trim( $model->content )) ) ], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Follow', ['follow-question/create', 'id' => $model->id,'question'=> strtolower( str_replace(' ', '-', trim( $model->content )) ) ], ['class' => 'btn btn-success']) ?>
         <!-- <?= Html::a('Answer', ['answer', 'id' => $model->id], ['class' => 'btn btn-primary']) ?> -->
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -25,46 +27,47 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-    <?= DetailView::widget([
+    </div>
+ <div style="background-color: white; margin: 15px;">
+         <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'user.username',
             'content:ntext',
-            'date_added:date',
-            'date_updated:date',
-            [
-              'attribute'=> 'question_category',
-              'value' => $model->category->category_name
-            ],
+            // [
+            //   'attribute'=> 'question_category',
+            //   'value' => $model->category->category_name
+            // ],
             
-            [
-            'attribute' =>'answered',
-            'value' => function($data){
-                            //return "Pending";
-                            if ($data->answered == 0 ) {
-                                return "Not yet";
-                            } else {
-                                return "Answered";
-                            }
+            // [
+            // 'attribute' =>'answered',
+            // 'value' => function($data){
+            //                 //return "Pending";
+            //                 if ($data->answered == 0 ) {
+            //                     return "Not yet";
+            //                 } else {
+            //                     return "Answered";
+            //                 }
                             
-                        }
-            ],
-            'answeredby.username',
+            //             }
+            // ],
+            // 'answeredby.username',
             'question_answer:html',
-            'answer_date:date',
-            [
-            'attribute' =>'question_status',
-            'value' => function($data){
-                            //return "Pending";
-                            if ($data->question_status == 10 ) {
-                                return "Pending";
-                            } else {
-                                return "Pending1";
-                            }
+            // 'answer_date:date',
+            // [
+            // 'attribute' =>'question_status',
+            // 'value' => function($data){
+            //                 //return "Pending";
+            //                 if ($data->question_status == 10 ) {
+            //                     return "Pending";
+            //                 } else {
+            //                     return "Pending1";
+            //                 }
                             
-                        }
-            ],
+            //             }
+            // ],
         ],
     ]) ?>
+ </div>
+
 
 </div>

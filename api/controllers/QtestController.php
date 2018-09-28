@@ -10,7 +10,8 @@ use common\models\User;
 use common\models\AppLog;
 use common\models\AppModel;
 use yii\helpers\Html;
-use common\models\QuestionAnswer;
+use common\models\QtestLike;
+use common\models\QComment;
 
 class QtestController extends \yii\rest\ActiveController
 {
@@ -31,8 +32,7 @@ class QtestController extends \yii\rest\ActiveController
  public function actionIndex(){
     \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
     $questions = new ActiveDataProvider([
-        'query' => \common\models\Qtest::find()
-        ->andHaving(['<=', 'uid', 100]),
+        'query' => \common\models\Qtest::find(),
         'pagination' => [
             'defaultPageSize' => 1000,
         ],
@@ -57,7 +57,7 @@ class QtestController extends \yii\rest\ActiveController
       $model = new Qtest();
 	    $params = Yii::$app->request->post();
 	    $model->content  = $params['content'];
-	    $model->uid = $params['username'];
+	    $model->uid = $params['uid'];
 
 	    // $model->email=$params['email'];
     
@@ -88,7 +88,7 @@ class QtestController extends \yii\rest\ActiveController
   //response array
   $response = array();
   $uploadedFile = UploadedFile::getInstanceByName('image');
-  $ymd = date("Ymd");
+  $ymd = date("YmdHis");
    //absolute url to save images
 
   //\yii\web\UploadedFile::getInstanceByName('image');
@@ -393,6 +393,78 @@ class QtestController extends \yii\rest\ActiveController
         'code'    => 401
          );
     }
+
+  }
+
+  public function actionLike()
+  {
+    $response = array();
+    $params = Yii::$app->request->post();
+    $uid = $params['uid'];
+    $qid = $params['qid'];
+    //$item_type = $params['item_type'];
+    unset($params);
+    //$idExists = $this->findModel( $item_id )->id;
+    //if($idExists)
+    $likeExists = QtestLike::likeExists($uid,$qid);
+
+    if ( $likeExists === 0 ) {
+      
+      $model  = new QtestLike();
+      $model->uid = $uid;
+      $model->qid = $qid;
+
+      if ( $model->save() ) {
+        $response["code"] = 201;
+        $response["message"] = "You have liked this Question";
+        //$response["params"] = $params;
+        unset($model);
+
+      } else {
+        $response["code"] = 401;
+        $response["message"] = $model->getErrors();
+      }
+      
+
+    } else {
+       $response["code"] = 401;
+       $response["message"] = "Error occured or you are not authorized";
+    }
+    
+    return $response;
+
+  }
+
+    public function actionComment()
+  {
+    $response = array();
+    $params = Yii::$app->request->post();
+    $uid = $params['uid'];
+    $qid = $params['dataid'];
+    $content = $params['content'];
+    //$item_type = $params['item_type'];
+    unset($params);
+    //$idExists = $this->findModel( $item_id )->id;
+    //if($idExists)
+    // $likeExists = QtestLike::likeExists($uid,$qid);
+      
+      $model  = new QComment();
+      $model->uid = $uid;
+      $model->dataid = $qid;
+      $model->content = $content;
+
+      if ( $model->save() ) {
+        $response["code"] = 201;
+        $response["message"] = "You have Commented on This question";
+        //$response["params"] = $params;
+        unset($model);
+
+      } else {
+        $response["code"] = 401;
+        $response["message"] = $model->getErrors();
+      }
+    
+    return $response;
 
   }
 }

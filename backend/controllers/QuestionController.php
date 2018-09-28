@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\QuestionCategory;
 use common\models\QuestionAnswer;
+use common\models\LikeQuestion;
 
 /**
  * QuestionController implements the CRUD actions for Question model.
@@ -141,7 +142,7 @@ class QuestionController extends Controller
             $answer = $_POST['Question'];
             $model->question_id = $id;
             $model->answer_content = $answer['answer_content'];
-            $model->user_id =   Yii::$app->user->identity->id;
+            $model->user_id =   $answer['user_id'];
             if ($model->save()) {
                
                return $this->redirect(['view', 'id' => $id]);
@@ -177,6 +178,32 @@ class QuestionController extends Controller
         } else {
             //$test = $_POST['Question'];
             return $this->render('follow', [
+                'model' => $model,
+                'question' => $question,
+            ]);
+        }
+    }
+
+    public function actionLike($id)
+    {
+        
+        $model = new LikeQuestion();
+
+        $question = $this->findModel($id);
+
+        if (isset($_POST['Question']) ) {
+            $answer = $_POST['Question'];
+            $model->question_id = $id;
+            $model->uid = $answer['uid'];
+            if ($model->save()) {
+               
+               return $this->redirect(['view', 'id' => $id]);
+            } else {
+                return false;
+            }
+        } else {
+            //$test = $_POST['Question'];
+            return $this->render('like', [
                 'model' => $model,
                 'question' => $question,
             ]);

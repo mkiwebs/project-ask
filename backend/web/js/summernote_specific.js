@@ -39,7 +39,75 @@
                     img = eventFile(files[0]);  
             }  
         }  
-        });  
+        }); 
+
+         $('#meme-test_content').summernote({  
+            height: "200px", 
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true,                // set focus to editable area after initializing summernote
+            dialogsInBody: true,
+            callbacks: {  
+                onImageUpload: function(files) { //the onImageUpload API  
+                  $('#modal-image').remove();
+                    img = eventFile(files[0]);  
+            }  
+        }  
+        }); 
+
+
+         $('#question-content').summernote({  
+            height: "200px", 
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true,                // set focus to editable area after initializing summernote
+            dialogsInBody: true,
+            callbacks: {  
+                onImageUpload: function(files) { //the onImageUpload API  
+                  $('#modal-image').remove();
+                    img = eventFile(files[0]);  
+            }  
+        }  
+        });        
+        $('#qtest-content').summernote({  
+            height: "200px", 
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true,                // set focus to editable area after initializing summernote
+            dialogsInBody: true,
+            callbacks: {  
+                onImageUpload: function(files) { //the onImageUpload API  
+                  $('#modal-image').remove();
+                    img = eventFile(files[0]);  
+            }  
+        }  
+        });        
+         $('#memecomment-content').summernote({  
+            height: "200px", 
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true,                // set focus to editable area after initializing summernote
+            dialogsInBody: true,
+            callbacks: {  
+                onImageUpload: function(files) { //the onImageUpload API  
+                  $('#modal-image').remove();
+                    img = eventFile(files[0]);  
+            }  
+        }  
+        });            
+         $('#qcomment-content').summernote({  
+            height: "200px", 
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true,                // set focus to editable area after initializing summernote
+            dialogsInBody: true,
+            callbacks: {  
+                onImageUpload: function(files) { //the onImageUpload API  
+                  $('#modal-image').remove();
+                    img = eventFile(files[0]);  
+            }  
+        }  
+        });   
     });  
       
     function sendFile(file) {  

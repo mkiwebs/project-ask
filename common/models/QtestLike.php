@@ -73,4 +73,18 @@ class QtestLike extends \yii\db\ActiveRecord
     {
        return  $this->hasOne(User::className(),['id' => 'uid']);
     }
+
+        public static function likeExists($uid,$meme_id)
+    {
+     
+        $exists = 0;      
+        $model = self::find()
+            ->where( [ 'qid' => (int)$meme_id, 'uid' => (int)$uid ] )
+            ->exists();
+        if ( $model === true ) {
+            $exists = 1;
+        } 
+
+        return $exists;
+    }
 }

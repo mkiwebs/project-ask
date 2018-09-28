@@ -10,12 +10,21 @@ use yii\grid\GridView;
 $this->title = 'Questions';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+    .question-index{
+        background-color: rgb(250,250,250);
+        margin: 20px;
+    }
+</style> 
+<div class=" ">
+    <p>
+    <?= Html::a('Add Question', ['create'], ['class' => 'btn btn-success ']) ?>
+    </p>
+</div>
 <div class="question-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Add Question', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

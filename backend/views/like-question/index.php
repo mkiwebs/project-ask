@@ -4,40 +4,32 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\MemeCommentSearch */
+/* @var $searchModel common\models\LikeQuestionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Meme Comments';
+$this->title = 'Like Questions';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<style>
-    .meme-comment-index{
-        background-color: white;
-        margin: 30px;
-    }
-</style>
-<div class="text-center" style="background-color: green; color: white;">
+<div class="like-question-index">
+
     <h1><?= Html::encode($this->title) ?></h1>
-</div>
-<div class="meme-comment-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+<!--     <p>
+        <?= Html::a('Create Like Question', ['create'], ['class' => 'btn btn-success']) ?>
+    </p> -->
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        // 'filterModel' => $searchModel,
         'columns' => [
             // ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'content:ntext',
+            'question_id',
+            'user.username',
             'addtime',
-            'uid',
-            'dataid',
-            'status',
-            'recomid',
-            'pid',
-            'has_sub',
-            'likes',
+
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

@@ -94,7 +94,7 @@ class Meme extends \yii\db\ActiveRecord
         return [
             'id',
             'uid',
-            'content',
+            'text_content',
             'addtime'=> function ($model) {
                             return date("d/m/Y",strtotime($model->addtime));
                         },
@@ -104,7 +104,7 @@ class Meme extends \yii\db\ActiveRecord
             'comments',
             'comments' => function ($model) {
                             $count = MemeComment::find()
-                                      ->where(['meme_id' => $model->id])
+                                      ->where(['dataid' => $model->id])
                                       ->count();
                             if ($count > 0  && $count == 1 ) {
 

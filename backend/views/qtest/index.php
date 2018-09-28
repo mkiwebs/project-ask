@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'user.username',
-            'addtime',
+            'addtime:date',
             'image',
             [
                'attribute' =>'Answers',

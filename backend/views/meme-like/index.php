@@ -10,25 +10,39 @@ use yii\grid\GridView;
 $this->title = 'Meme Likes';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<style>
+    .meme-like-index{
+        background-color: rgb(250,250,250);
+        margin: 20px;
+    }
+</style> 
+<div class="text-center" style="background-color: green; color: white;">
+    <h1><?= Html::encode($this->title) ?></h1>
+</div>
 <div class="meme-like-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+   
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Meme Like', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             // ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'user.username',
+            [
+            'label'=>'Date',
+            'attribute'=>'user.username',
+            'format'=>'text',
+            'contentOptions'=>['class'=>'bg-green']
+            ],
             'meme_id',
-            'addtime:date',
+            // 'addtime:date',
+                        [
+            'label'=>'Date',
+            'attribute'=>'addtime',
+            'format'=>'date',
+            'contentOptions'=>['class'=>'bg-purple']
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

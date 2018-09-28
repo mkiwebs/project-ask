@@ -96,7 +96,6 @@ class AppUserController extends Controller
      */
     public function actionCreate()
     {
-        if ( LyfeyAccess::hasPermission('app-user/index')) {
 
             $model = new User();
 
@@ -110,11 +109,6 @@ class AppUserController extends Controller
                 ]);
             }
 
-        } else {
-
-            throw new ForbiddenHttpException( LyfeyAccess::$permission_error );
-            
-        }
     }
 
     /**

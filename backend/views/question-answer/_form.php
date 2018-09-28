@@ -57,7 +57,7 @@ $this->registerJs($script);
 
     <?php $form = ActiveForm::begin(); ?>
      <?= $form->errorSummary($model); ?> 
-
+    <?= $form->field($model,'user_id')->textInput();    ?>
     <?= $form->field($model, 'answer_content')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">

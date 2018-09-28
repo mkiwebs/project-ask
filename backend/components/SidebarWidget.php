@@ -195,7 +195,13 @@ class SidebarWidget extends Widget
                 'name'     => "Questions Answers",
                 'href'     => Url::toRoute(['question-answer/index']),
                 'children' => array()
-            );            
+            ); 
+            $app_questions[]= array(
+                'id'       => 'general-settings',
+                'name'     => "Questions Likes",
+                'href'     => Url::toRoute(['like-question/index']),
+                'children' => array()
+            );          
             $app_questions[]= array(
                 'name'	   => "Questions Follow",
                 'href'     => Url::toRoute(['follow-question/index']),

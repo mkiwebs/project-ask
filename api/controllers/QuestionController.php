@@ -11,6 +11,8 @@ use common\models\AppLog;
 use common\models\AppModel;
 use yii\helpers\Html;
 use common\models\QuestionAnswer;
+use common\models\LikeQuestion;
+use common\models\FollowQuestion;
 
 class QuestionController extends \yii\rest\ActiveController
 {
@@ -398,6 +400,86 @@ class QuestionController extends \yii\rest\ActiveController
         'code'    => 401
          );
     }
+
+  }
+
+    public function actionLike()
+  {
+    $response = array();
+    $params = Yii::$app->request->post();
+    $uid = $params['uid'];
+    $question_id = $params['question_id'];
+    //$item_type = $params['item_type'];
+    $item_type = "article";
+    unset($params);
+    //$idExists = $this->findModel( $item_id )->id;
+    //if($idExists)
+    $likeExists = LikeQuestion::likeExists($uid,$question_id);
+
+    if ( $likeExists === 0 ) {
+      
+      $model  = new LikeQuestion();
+      $model->uid = $uid;
+      $model->question_id = $question_id;
+
+      if ( $model->save() ) {
+        $response["code"] = 201;
+        $response["message"] = "You have liked this Question";
+        //$response["params"] = $params;
+        unset($model);
+
+      } else {
+        $response["code"] = 401;
+        $response["message"] = $model->getErrors();
+      }
+      
+
+    } else {
+       $response["code"] = 401;
+       $response["message"] = "Error occured or you are not authorized";
+    }
+    
+    return $response;
+
+  }
+
+  public function actionFollow()
+  {
+    $response = array();
+    $params = Yii::$app->request->post();
+    $uid = $params['uid'];
+    $question_id = $params['quiz_id'];
+    //$item_type = $params['item_type'];
+    $item_type = "article";
+    unset($params);
+    //$idExists = $this->findModel( $item_id )->id;
+    //if($idExists)
+    $likeExists = FollowQuestion::likeExists($uid,$question_id);
+
+    if ( $likeExists === 0 ) {
+      
+      $model  = new FollowQuestion();
+      $model->uid = $uid;
+      $model->quiz_id = $question_id;
+
+      if ( $model->save() ) {
+        $response["code"] = 201;
+        $response["message"] = "You have liked this Question";
+        //$response["params"] = $params;
+        unset($model);
+
+      } else {
+        $response["code"] = 401;
+        $response["message"] = $model->getErrors();
+      }
+      
+
+    } else {
+       $response["code"] = 401;
+       $response["message"] = "Error occured or you are not authorized";
+    }
+    
+    return $response;
 
   }
 }

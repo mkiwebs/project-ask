@@ -10,16 +10,16 @@ use yii\grid\GridView;
 $this->title = 'Memes';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="meme-index">
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <?= Html::encode($this->title) ?>
+         <?= Html::a('Create Meme', ['create'], ['class' => 'btn btn-success pull-right' ]) ?>
+      </div>
+      <div class="card-body">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Meme', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
+        <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -49,3 +49,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 </div>
+</div>
+</div></div>
+

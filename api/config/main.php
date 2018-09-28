@@ -55,7 +55,7 @@ return [
                                         'user','businesslist','job',
                                         'question-category','app-info',
                                         'question','trending-news','article',
-                                        'app-event'
+                                        'app-event','like_question'
                             ],
 
                             'tokens' => [
