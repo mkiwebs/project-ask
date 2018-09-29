@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->event_id], ['class' => 'btn btn-primary']) ?>
+    <?= Html::a('Answer', ['follow-event/create', 'id' => $model->event_id,'event'=> strtolower( str_replace(' ', '-', trim( $model->description )) ) ], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->event_id], [
             'class' => 'btn btn-danger',
             'data' => [

@@ -127,6 +127,38 @@ class Question extends \yii\db\ActiveRecord
                             }
                             
                             return $count;
+                        },
+                'likes' => function ($model) {
+                            $count = LikeQuestion::find()
+                                      ->where(['question_id' => $model->id])
+                                      ->count();
+                            if ($count > 0  && $count == 1 ) {
+
+                               $count = $count." Like";
+
+                            } elseif ($count > 1 ) {
+                                $count = $count." Likes";
+                            } else {
+                                $count = " No LIke yet";
+                            }
+                            
+                            return $count;
+                        },
+                 'followers' => function ($model) {
+                            $count = FollowQuestion::find()
+                                      ->where(['quiz_id' => $model->id])
+                                      ->count();
+                            if ($count > 0  && $count == 1 ) {
+
+                               $count = $count." Follow";
+
+                            } elseif ($count > 1 ) {
+                                $count = $count." follows";
+                            } else {
+                                $count = " No follow ";
+                            }
+                            
+                            return $count;
                         }
         ];
     }

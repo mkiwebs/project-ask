@@ -136,6 +136,12 @@ class SidebarWidget extends Widget
                 'href'     => Url::toRoute(['event-category/create']),
                 'children' => array()
             );
+        $app_event[]= array(
+                'id'       => 'general-settings',
+                'name'     => "Events Followers",
+                'href'     => Url::toRoute(['follow-event/index']),
+                'children' => array()
+            );
 	        $app_event[]= array(
 	            'id'       => 'email-settings',
 	            'name'	   => "Events",

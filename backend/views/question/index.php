@@ -29,6 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'showHeader' => true,
+                // 'rowOptions'=>function ($data)
+                //         {
+                //             if ($data->current_status === "paid") {
+                //                 return['class'=>'bg-green'];
+                //             }
+                //             elseif ($data->current_status === "not paid") {
+                //                  return['class'=>'bg-red'];
+                //             }
+                //         },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'user.username',

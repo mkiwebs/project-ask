@@ -4,7 +4,7 @@ namespace api\controllers;
 use yii\data\ActiveDataProvider;
 // use common\models\LikeQuestion;
 
-class LikeQuestion extends \yii\rest\ActiveController
+class LikeQuestionController extends \yii\rest\ActiveController
 {
 	public $modelClass = 'common\models\LikeQuestion';
 	public $serializer = [
